@@ -62,10 +62,12 @@ mentorRouter
             students.push(element.name)
         })
         res.status(200).json({ students });
-    }).patch(async (req, res) => {
+    })
+mentorRouter
+    .route("/getStudent/").patch(async (req, res) => {
         const { mentorId, studentId } = req.body;
         const mentor = mentorData.updateOne({ _id: mentorId }, { $pull: { students: { studentId: studentId } } })
-        res.json({ mentor: mentor, message: "deleted student" })
+        res.json({ message: "deleted student" })
     })
 
 mentorRouter
