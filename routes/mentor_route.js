@@ -74,7 +74,7 @@ mentorRouter
     .delete(async (req, res) => {
         const { id } = req.params;
         const mentor = await mentorData.findByIdAndRemove(id);
-        res.status(200).json({ mentor, message: "Student Deleted Successfully" })
+        res.status(200).json({ mentor, message: "Mentor Deleted Successfully" })
     })
 
 export { mentorRouter };
