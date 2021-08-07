@@ -30,10 +30,8 @@ studentRouter
             const student = await studentData.findById(studentId);
             const mentor = await mentorData.findById(mentorId);
             if (!student || !mentor) return res.status(404).json({ message: "Not found" })
-            if (!student.status) {
-                const oldmentor = student.mentor;
-                await mentorData.updateOne({ _id: oldmentor.mentorId }, { $pull: { students: { studentId: studentId } } })
-            }
+            const oldmentor = student.mentor;
+            await mentorData.updateOne({ _id: oldmentor.mentorId }, { $pull: { students: { studentId: studentId } } })
             await studentData.updateOne({ _id: studentId }, {
                 $set: { mentor: { mentorId: mentorId, name: mentor.name, status: "true" } }
             })
