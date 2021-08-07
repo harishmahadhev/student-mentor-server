@@ -27,7 +27,6 @@ mentorRouter
     //Adding Students to mentor
     .patch(async (req, res) => {
         const { mentorId, studentId } = req.body;
-        console.log(studentId)
         if (!mentorId || !studentId) return res.status(400).json({ message: "Field is empty" })
         try {
             studentId.forEach(async (element) => {
@@ -64,10 +63,10 @@ mentorRouter
         res.status(200).json({ students });
     })
 mentorRouter
-    .route("/getStudent/").patch(async (req, res) => {
+    .route("/getStudent").patch(async (req, res) => {
         const { mentorId, studentId } = req.body;
-        const mentor = mentorData.updateOne({ _id: mentorId }, { $pull: { students: { studentId: studentId } } })
-        res.json({ message: "deleted student" })
+        const mentor = await mentorData.updateOne({ _id: mentorId }, { $pull: { students: { studentId: studentId } } })
+        res.json({ mentor, message: "deleted student" })
     })
 
 mentorRouter
